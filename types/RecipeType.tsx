@@ -4,7 +4,7 @@ export type RecipeType = {
 	title: string;
 	image: string;
 	description: string;
-	details: RecipeDetails[];
+	details?: RecipeDetails[];
 };
 
 export type RecipeDetails = {

@@ -21,7 +21,6 @@ export async function getStaticProps() {
 		title: item.title,
 		image: item.image,
 		description: item.description,
-		details: item.details,
 	}));
 
 	client.close();
