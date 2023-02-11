@@ -1,5 +1,12 @@
+import { RecipeForm } from "@/components/recipeForm/RecipeForm";
+import { Fragment } from "react";
+
 function AddRecipe() {
-    return <h1>Add Recipe</h1>
+    return (
+        <Fragment>
+            <RecipeForm />
+        </Fragment>
+    )
 }
 
 export default AddRecipe;

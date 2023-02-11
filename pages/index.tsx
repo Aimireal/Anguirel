@@ -4,7 +4,7 @@ import Head from "next/head";
 import { Fragment } from "react";
 
 import { RecipeType } from "@/types/RecipeType";
-import { RecipeItem } from "@/components/RecipeItem/RecipeItem";
+import { RecipeItem } from "@/components/recipeItem/RecipeItem";
 
 // Testdata
 const RECIPE_POST: RecipeType[] = [

@@ -7,9 +7,6 @@ export const Navigation = () => {
 				<li className="px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700">
 					<Link href={"/"}>Home</Link>
 				</li>
-				<li className="px-4 py-2 font-bold text-white">
-					<Link href={"/"}>Anguirel</Link>
-				</li>
 				<li className="px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700">
 					<Link href={"/add-recipe"}>Add Recipe</Link>
 				</li>
