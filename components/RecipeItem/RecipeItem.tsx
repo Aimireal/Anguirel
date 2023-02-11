@@ -23,3 +23,5 @@ export function RecipeItem(recipe: RecipeType) {
 		</div>
 	);
 }
+
+export default RecipeItem;

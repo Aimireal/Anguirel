@@ -13,7 +13,6 @@ export default async function handler(
 	}
 
 	if (!req.body) {
-		console.log(`new-recipe: unexpected obj`);
 		return;
 	}
 

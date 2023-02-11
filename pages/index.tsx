@@ -12,9 +12,7 @@ export async function getStaticProps() {
 		"mongodb+srv://aimireal:aFfgWkeoTgHECOtK@cluster0.3nmvr01.mongodb.net/?retryWrites=true&w=majority"
 	);
 
-	const recipesCollection = client
-		.db("RecipeDatabase")
-		.collection("RecipeCollection");
+	const recipesCollection = client.db("RecipeDatabase").collection("RecipeCollection");
 	const dbData = await recipesCollection.find().toArray(); // Return all. Filtering system in another area later
 
 	const recipes: RecipeType[] = dbData.map((item) => ({
@@ -25,9 +23,7 @@ export async function getStaticProps() {
 		description: item.description,
 		details: item.details,
 	}));
-
-	console.log(recipes);
-
+	
 	client.close();
 
 	return {
