@@ -1,86 +1,73 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
+import type { NextPage } from "next";
+import Head from "next/head";
+
+import { Fragment } from "react";
+
+import { RecipeType } from "@/types/RecipeType";
+import { RecipeItem } from "@/components/RecipeItem/RecipeItem";
+
+// Testdata
+const RECIPE_POST: RecipeType[] = [
+	{
+		id: 1,
+		slug: "cookies",
+		title: "Cookies",
+		image:
+			"https://images.unsplash.com/photo-1499636136210-6f4ee915583e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
+		description: "These are some tasty cookies",
+		details: [
+			{ id: 1, text: "Step 1... Stuff" },
+			{ id: 2, text: "Step 2... Stuff" },
+		],
+	},
+	{
+		id: 2,
+		slug: "brownie",
+		title: "Brownie",
+		image:
+			"https://images.unsplash.com/photo-1610611424854-5e07032143d8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YnJvd25pZXN8ZW58MHx8MHx8&auto=format&fit=crop&w=1800&q=60",
+		description: "These are some fudgy brownies",
+		details: [
+			{ id: 1, text: "Step 1... Stuff" },
+			{ id: 2, text: "Step 2... Stuff" },
+		],
+	},
+	{
+		id: 3,
+		slug: "scones",
+		title: "Scones",
+		image:
+			"https://images.unsplash.com/photo-1606946144557-0d04974df266?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80",
+		description: "A delightful classic",
+		details: [
+			{ id: 1, text: "Step 1... Stuff" },
+			{ id: 2, text: "Step 2... Stuff" },
+		],
+	},
+];
 
 const Home: NextPage = () => {
-  return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+	return (
+		<Fragment>
+			<Head>
+				<link
+					href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
+					rel="stylesheet"
+				/>
+			</Head>
 
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
+			<div className="text-center">
+				<h1 className="px-4 py-2 font-semibold">Recipes</h1>
+			</div>
 
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="rounded-md bg-gray-100 p-3 font-mono text-lg">
-            pages/index.tsx
-          </code>
-        </p>
+			{RECIPE_POST.map((recipe: RecipeType) => (
+				<div key={recipe.id} className="flex flex-col">
+					<RecipeItem {...recipe} />
+				</div>
+			))}
+		</Fragment>
+	);
+};
 
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and its API.
-            </p>
-          </a>
+export default Home;
 
-          <a
-            href="https://nextjs.org/learn"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className="flex h-24 w-full items-center justify-center border-t">
-        <a
-          className="flex items-center justify-center gap-2"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-        </a>
-      </footer>
-    </div>
-  )
-}
-
-export default Home
