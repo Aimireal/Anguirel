@@ -1,3 +1,4 @@
+import RecipeItem from "@/components/recipeItem/RecipeItem";
 import { RecipeType } from "@/types/RecipeType";
 import { Document, MongoClient } from "mongodb";
 import { Fragment } from "react";
@@ -61,15 +62,20 @@ export async function getStaticProps(context: Document) {
 		return {
 			props: {
 				title: recipe.title,
+				image: request.image,
+				description: request.description,
+				details: request.details,
 			},
 		};
 	}
 }
 
-export function RecipeDetails(props: any) {
+export function RecipeDetails(props: RecipeType) {
 	return (
 		<Fragment>
-			<div className="flex flex-col"></div>
+			<div className="flex flex-col">
+				<RecipeItem {...props} />
+			</div>
 		</Fragment>
 	);
 }

@@ -23,7 +23,7 @@ export async function getStaticProps() {
 		description: item.description,
 		details: item.details,
 	}));
-	
+
 	client.close();
 
 	return {
@@ -42,6 +42,8 @@ const Home = (props: PropsType) => {
 					href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
 					rel="stylesheet"
 				/>
+				<title>Anguirel</title>
+				<meta name="description" content="recipes"/>
 			</Head>
 
 			<div className="text-center">
