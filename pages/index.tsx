@@ -1,52 +1,44 @@
-import type { NextPage } from "next";
 import Head from "next/head";
 
 import { Fragment } from "react";
 
 import { RecipeType } from "@/types/RecipeType";
 import { RecipeItem } from "@/components/recipeItem/RecipeItem";
+import { PropsType } from "@/types/PropsType";
+import { MongoClient } from "mongodb";
 
-// Testdata
-const RECIPE_POST: RecipeType[] = [
-	{
-		id: 1,
-		slug: "cookies",
-		title: "Cookies",
-		image:
-			"https://images.unsplash.com/photo-1499636136210-6f4ee915583e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
-		description: "These are some tasty cookies",
-		details: [
-			{ id: 1, text: "Step 1... Stuff" },
-			{ id: 2, text: "Step 2... Stuff" },
-		],
-	},
-	{
-		id: 2,
-		slug: "brownie",
-		title: "Brownie",
-		image:
-			"https://images.unsplash.com/photo-1610611424854-5e07032143d8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YnJvd25pZXN8ZW58MHx8MHx8&auto=format&fit=crop&w=1800&q=60",
-		description: "These are some fudgy brownies",
-		details: [
-			{ id: 1, text: "Step 1... Stuff" },
-			{ id: 2, text: "Step 2... Stuff" },
-		],
-	},
-	{
-		id: 3,
-		slug: "scones",
-		title: "Scones",
-		image:
-			"https://images.unsplash.com/photo-1606946144557-0d04974df266?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80",
-		description: "A delightful classic",
-		details: [
-			{ id: 1, text: "Step 1... Stuff" },
-			{ id: 2, text: "Step 2... Stuff" },
-		],
-	},
-];
+export async function getStaticProps() {
+	const client = await MongoClient.connect(
+		"mongodb+srv://aimireal:aFfgWkeoTgHECOtK@cluster0.3nmvr01.mongodb.net/?retryWrites=true&w=majority"
+	);
 
-const Home: NextPage = () => {
+	const recipesCollection = client
+		.db("RecipeDatabase")
+		.collection("RecipeCollection");
+	const dbData = await recipesCollection.find().toArray(); // Return all. Filtering system in another area later
+
+	const recipes: RecipeType[] = dbData.map((item) => ({
+		id: item._id.toString(),
+		slug: item.slug,
+		title: item.title,
+		image: item.image,
+		description: item.description,
+		details: item.details,
+	}));
+
+	console.log(recipes);
+
+	client.close();
+
+	return {
+		props: {
+			recipes: recipes,
+		},
+		revalidate: 360,
+	};
+}
+
+const Home = (props: PropsType) => {
 	return (
 		<Fragment>
 			<Head>
@@ -60,7 +52,7 @@ const Home: NextPage = () => {
 				<h1 className="px-4 py-2 font-semibold">Recipes</h1>
 			</div>
 
-			{RECIPE_POST.map((recipe: RecipeType) => (
+			{props.recipes.map((recipe: RecipeType) => (
 				<div key={recipe.id} className="flex flex-col">
 					<RecipeItem {...recipe} />
 				</div>
