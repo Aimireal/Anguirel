@@ -4,11 +4,11 @@ import { Fragment } from "react";
 
 import { RecipeType } from "@/types/RecipeType";
 import { PropsType } from "@/types/PropsType";
-import RecipeItem from "@/components/recipeItem/RecipeItem";
-
-const connectionString = process.env.DB_RECIPES_CONNECTION ?? "";
+import HomepageCard from "@/components/homepageCard/HomepageCard";
+import RecipeGrid from "@/components/recipeGrid/recipeGrid";
 
 export async function getStaticProps() {
+	const connectionString = process.env.DB_RECIPES_CONNECTION ?? "";
 	const client = await MongoClient.connect(connectionString);
 
 	const recipesCollection = client
@@ -46,13 +46,8 @@ const Home = (props: PropsType) => {
 				<meta name="description" content="recipes" />
 			</Head>
 			<div className="min-h-screen bg-[url('../public/background.svg')]">
-				<div className="grid grid-flow-row mx-9 gap-9 text-neutral-600 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-					{props.recipes.map((recipe: RecipeType) => (
-						<div key={recipe.id} className="col-span-1 flex flex-col">
-							<RecipeItem {...recipe} />
-						</div>
-					))}
-				</div>
+				<HomepageCard />
+				<RecipeGrid recipes={props.recipes} />
 			</div>
 		</Fragment>
 	);
