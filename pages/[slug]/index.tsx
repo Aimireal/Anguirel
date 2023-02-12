@@ -71,7 +71,7 @@ export async function getStaticProps(context: Document) {
 export function RecipeDetails(props: RecipeType) {
 	return (
 		<Fragment>
-			<div className="flex flex-col">
+			<div className="min-h-screen bg-[url('../public/background.svg')] flex flex-col">
 				<RecipeItem {...props} />
 			</div>
 		</Fragment>

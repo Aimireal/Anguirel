@@ -13,7 +13,7 @@ function RecipeItem(recipe: RecipeType) {
 	const renderedDetails = () => {
 		return recipe.details?.map((detail) => {
 			return (
-				<p className="mb-3 font-normal text-gray-500 dark:text-gray-400">
+				<p className="mx-4 mb-3 font-normal text-gray-500 dark:text-gray-400">
 					{detail.text}
 				</p>
 			);
@@ -21,7 +21,7 @@ function RecipeItem(recipe: RecipeType) {
 	};
 
 	return (
-		<div className="my-8 rounded shadow-lg shadow-gray-200 dark:shadow-gray-900 bg-white dark:bg-gray-800 duration-300 hover:-translate-y-1">
+		<div className="mx-4 my-8 rounded shadow-lg shadow-gray-200 dark:shadow-gray-900 bg-white dark:bg-gray-800 duration-300 hover:-translate-y-1">
 			<a href={recipe.slug} className="cursor-pointer">
 				<img
 					className="rounded-t h-72 w-full object-cover"
