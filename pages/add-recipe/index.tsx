@@ -1,4 +1,4 @@
-import { RecipeForm } from "@/components/recipeForm/RecipeForm";
+import RecipeForm from "@/components/recipeForm/RecipeForm";
 import { useRouter } from "next/router";
 import { Fragment } from "react";
 

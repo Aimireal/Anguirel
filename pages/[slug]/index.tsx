@@ -1,7 +1,7 @@
 import { Document, MongoClient } from "mongodb";
 import { Fragment } from "react";
-import { RecipeItem } from "@/components/recipeItem/RecipeItem";
 import { RecipeType } from "@/types/RecipeType";
+import RecipeItem from "@/components/recipeItem/RecipeItem";
 
 const connectionString = process.env.DB_RECIPES_CONNECTION ?? "";
 

@@ -1,9 +1,8 @@
 import { useRouter } from "next/router";
-
 import { RecipeType } from "@/types/RecipeType";
 import { Fragment } from "react";
 
-export function RecipeItem(recipe: RecipeType) {
+function RecipeItem(recipe: RecipeType) {
 	const router = useRouter();
 	const onNavigate = () => {
 		router.push(`/${recipe.slug}`);
@@ -56,3 +55,5 @@ export function RecipeItem(recipe: RecipeType) {
 		</div>
 	);
 }
+
+export default RecipeItem;

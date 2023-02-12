@@ -1,7 +1,7 @@
 import { RecipeDetails, RecipeType } from "@/types/RecipeType";
 import { useRef } from "react";
 
-export function RecipeForm(props: any) {
+function RecipeForm(props: any) {
 	const { addRecipeHandler } = props;
 
 	const titleRef = useRef<HTMLInputElement>(null);
@@ -88,3 +88,5 @@ export function RecipeForm(props: any) {
 		</form>
 	);
 }
+
+export default RecipeForm;
