@@ -1,12 +1,12 @@
-import RecipeItem from "@/components/recipeItem/RecipeItem";
-import { RecipeType } from "@/types/RecipeType";
 import { Document, MongoClient } from "mongodb";
 import { Fragment } from "react";
+import { RecipeItem } from "@/components/recipeItem/RecipeItem";
+import { RecipeType } from "@/types/RecipeType";
+
+const connectionString = process.env.DB_RECIPES_CONNECTION ?? "";
 
 export async function getStaticPaths() {
-	const client = await MongoClient.connect(
-		"mongodb+srv://aimireal:aFfgWkeoTgHECOtK@cluster0.3nmvr01.mongodb.net/?retryWrites=true&w=majority"
-	);
+	const client = await MongoClient.connect(connectionString);
 
 	const recipesCollection = client
 		.db("RecipeDatabase")
@@ -38,9 +38,7 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: Document) {
 	const id = context.params.slug;
 
-	const client = await MongoClient.connect(
-		"mongodb+srv://aimireal:aFfgWkeoTgHECOtK@cluster0.3nmvr01.mongodb.net/?retryWrites=true&w=majority"
-	);
+	const client = await MongoClient.connect(connectionString);
 
 	const recipesCollection = client
 		.db("RecipeDatabase")

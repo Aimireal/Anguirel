@@ -1,18 +1,19 @@
 import Head from "next/head";
-
+import { MongoClient } from "mongodb";
 import { Fragment } from "react";
 
 import { RecipeType } from "@/types/RecipeType";
 import { RecipeItem } from "@/components/recipeItem/RecipeItem";
 import { PropsType } from "@/types/PropsType";
-import { MongoClient } from "mongodb";
+
+const connectionString = process.env.DB_RECIPES_CONNECTION ?? "";
 
 export async function getStaticProps() {
-	const client = await MongoClient.connect(
-		"mongodb+srv://aimireal:aFfgWkeoTgHECOtK@cluster0.3nmvr01.mongodb.net/?retryWrites=true&w=majority"
-	);
+	const client = await MongoClient.connect(connectionString);
 
-	const recipesCollection = client.db("RecipeDatabase").collection("RecipeCollection");
+	const recipesCollection = client
+		.db("RecipeDatabase")
+		.collection("RecipeCollection");
 	const dbData = await recipesCollection.find().toArray(); // Return all. Filtering system in another area later
 
 	const recipes: RecipeType[] = dbData.map((item) => ({
@@ -42,21 +43,19 @@ const Home = (props: PropsType) => {
 					rel="stylesheet"
 				/>
 				<title>Anguirel</title>
-				<meta name="description" content="recipes"/>
+				<meta name="description" content="recipes" />
 			</Head>
-
-			<div className="text-center">
-				<h1 className="px-4 py-2 font-semibold">Recipes</h1>
-			</div>
-
-			{props.recipes.map((recipe: RecipeType) => (
-				<div key={recipe.id} className="flex flex-col">
-					<RecipeItem {...recipe} />
+			<div className="min-h-screen bg-[url('../public/background.svg')]">
+				<div className="grid grid-flow-row mx-9 gap-9 text-neutral-600 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+					{props.recipes.map((recipe: RecipeType) => (
+						<div key={recipe.id} className="col-span-1 flex flex-col">
+							<RecipeItem {...recipe} />
+						</div>
+					))}
 				</div>
-			))}
+			</div>
 		</Fragment>
 	);
 };
 
 export default Home;
-

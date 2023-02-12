@@ -3,6 +3,8 @@ import { MongoClient } from "mongodb";
 
 import { RecipeType } from "@/types/RecipeType";
 
+const connectionString = process.env.DB_RECIPES_CONNECTION ?? "";
+
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
@@ -16,9 +18,7 @@ export default async function handler(
 		return;
 	}
 
-	const client = await MongoClient.connect(
-		"mongodb+srv://aimireal:aFfgWkeoTgHECOtK@cluster0.3nmvr01.mongodb.net/?retryWrites=true&w=majority"
-	);
+	const client = await MongoClient.connect(connectionString);
 
 	// Add our new recipe to the database, return success status
 	const recipesCollection = client.db("RecipeDatabase").collection("RecipeCollection");
