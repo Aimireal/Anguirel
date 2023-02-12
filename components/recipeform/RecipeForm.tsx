@@ -37,47 +37,47 @@ function RecipeForm(props: any) {
 				className="max-w-lg w-full-lg mx-auto"
 				onSubmit={recipeSubmitHandler}
 			>
-				<div className="flex flex-wrap -mx-3 mb-6">
-					<label className="block uppercase tracking-wide mx-auto text-gray-700 text-xs font-bold mb-2">
+				<div className="flex flex-wrap mx-3 mb-6">
+					<label className="mt-4 block uppercase tracking-wide mx-auto text-gray-400 text-xs font-bold mb-2">
 						Recipe Name
 					</label>
 					<input
 						className="appearance-none block w-full bg-gray-700 text-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-gray-500"
 						type="text"
-						placeholder="title..."
+						placeholder="Recipe Name..."
 						ref={titleRef}
 					/>
 				</div>
 				<div className="flex flex-wrap -mx-3 mb-6">
-					<label className="block uppercase tracking-wide mx-auto text-gray-700 text-xs font-bold mb-2">
+					<label className="block uppercase tracking-wide mx-auto text-gray-400 text-xs font-bold mb-2">
 						Image URL
 					</label>
 					<input
 						className="appearance-none block w-full bg-gray-700 text-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-gray-500"
 						type="text"
-						placeholder="image..."
+						placeholder="Image URL..."
 						ref={imageRef}
 					/>
 				</div>
 				<div className="flex flex-wrap -mx-3 mb-6">
-					<label className="block uppercase tracking-wide mx-auto text-gray-700 text-xs font-bold mb-2">
+					<label className="block uppercase tracking-wide mx-auto text-gray-400 text-xs font-bold mb-2">
 						Description
 					</label>
 					<input
 						className="appearance-none block w-full bg-gray-700 text-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-gray-500"
 						type="text"
-						placeholder="description..."
+						placeholder="Description..."
 						ref={descRef}
 					/>
 				</div>
 				<div className="flex flex-wrap -mx-3 mb-6">
-					<label className="block uppercase tracking-wide mx-auto text-gray-700 text-xs font-bold mb-2">
+					<label className="block uppercase tracking-wide mx-auto text-gray-400 text-xs font-bold mb-2">
 						Details
 					</label>
 					<input
 						className="appearance-none block w-full bg-gray-700 text-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-gray-500"
 						type="text"
-						placeholder="details..."
+						placeholder="Details..."
 						ref={detailsRef}
 					/>
 				</div>
