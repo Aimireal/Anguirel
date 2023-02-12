@@ -12,29 +12,33 @@ export function RecipeItem(recipe: RecipeType) {
 	// Conditional rendering for recipe steps
 	const hasDetails = Object.hasOwn(recipe, "details");
 	const renderedDetails = () => {
-		return recipe.details?.map(detail => {
-			return <p className="text-base text-gray-700">{detail.text}</p>
-		})
-	}
+		return recipe.details?.map((detail) => {
+			return <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">{detail.text}</p>;
+		});
+	};
 
 	return (
-		<div className="max-w-sm mx-auto my-2 overflow-hidden rounded shadow-lg">
-			<img className="w-full h-60" src={recipe.image} alt={recipe.title}></img>
-			<div className="px-6 py-4">
-				<div className="mb-2 text-xl font-bold">{recipe.title}</div>
-				<p className="text-base text-gray-700">{recipe.description}</p>
-			</div>
-			<div className="text-center">
+		<div className="max-w-sm mx-auto bg-white border rounded-lg shadow dark:bg-gray-800">
+			<a href="#">
+				<img className="rounded-t-lg" src={recipe.image} alt={recipe.title} />
+			</a>
+			<div className="p-5">
+				<a href="#">
+					<h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+						{recipe.title}
+					</h5>
+				</a>
+				<p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+					{recipe.description}
+				</p>
 				{hasDetails === true ? null : (
 					<button
 						onClick={onNavigate}
-						className="px-4 py-2 my-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded hover:bg-blue-500 hover:text-white hover:border-transparent"
+						className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
 					>
-						Show Recipe...
+						Show Recipe
 					</button>
 				)}
-			</div>
-			<div className="px-6 py-4">
 				{hasDetails === true ? (
 					<Fragment>
 						<div>
@@ -46,5 +50,3 @@ export function RecipeItem(recipe: RecipeType) {
 		</div>
 	);
 }
-
-export default RecipeItem;
