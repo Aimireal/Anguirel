@@ -36,7 +36,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context: Document) {
 	const id = context.params.slug;
-
+	const connectionString = process.env.DB_RECIPES_CONNECTION ?? "";
 	const client = await MongoClient.connect(connectionString);
 
 	const recipesCollection = client
