@@ -13,16 +13,21 @@ function RecipeItem(recipe: RecipeType) {
 	const renderedDetails = () => {
 		return recipe.details?.map((detail) => {
 			return (
-				<p className="mx-4 mb-3 font-normal text-gray-500 dark:text-gray-400">
-					{detail.text}
-				</p>
+				<Fragment key={detail.id}>
+					<label className="mx-4 uppercase tracking-wide text-gray-400 text-xs font-bold">
+						Step: {detail.id + 1}
+					</label>
+					<p className="mx-4 mb-3 font-normal text-gray-500 dark:text-gray-400">
+						{detail.text}
+					</p>
+				</Fragment>
 			);
 		});
 	};
 
 	return (
 		<div className="mx-4 my-8 rounded shadow-lg shadow-gray-200 dark:shadow-gray-900 bg-white dark:bg-gray-800 duration-300 hover:-translate-y-1">
-			<a href={recipe.slug} className="cursor-pointer">
+			<a key={recipe.id} href={recipe.slug} className="cursor-pointer">
 				<img
 					className="rounded-t h-72 w-full object-cover"
 					src={recipe.image}
