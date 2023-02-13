@@ -3,9 +3,8 @@ import { Fragment } from "react";
 import { RecipeType } from "@/types/RecipeType";
 import RecipeItem from "@/components/recipeItem/RecipeItem";
 
-const connectionString = process.env.DB_RECIPES_CONNECTION ?? "";
-
 export async function getStaticPaths() {
+	const connectionString = process.env.DB_RECIPES_CONNECTION ?? "";
 	const client = await MongoClient.connect(connectionString);
 
 	const recipesCollection = client
