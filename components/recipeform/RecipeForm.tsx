@@ -8,7 +8,13 @@ function RecipeForm(props: any) {
 
 	const titleRef = useRef<HTMLInputElement>(null);
 	const imageRef = useRef<HTMLInputElement>(null);
-	const descRef = useRef<HTMLInputElement>(null);
+	const descriptionRef = useRef<HTMLInputElement>(null);
+	const servingsRef = useRef<HTMLInputElement>(null);
+
+	const [ingredients, setIngredients] = useState<IngredientsType[]>([]);
+	function handleIngredients(newIngredients: IngredientsType[]) {
+		setIngredients(newIngredients);
+	}
 
 	// State for Steps
 	const [detailFields, setDetailFields] = useState<RecipeDetails[]>([
@@ -41,6 +47,10 @@ function RecipeForm(props: any) {
 		setDetailFields(data);
 	};
 
+	const onIngredientsChange = (ingredients: IngredientsType[]) => {
+		console.log(`Ingredients Changed`);
+	};
+
 	const recipeSubmitHandler = (e: any) => {
 		e.preventDefault();
 		const recipeDetails: RecipeDetails[] = detailFields;
@@ -49,8 +59,10 @@ function RecipeForm(props: any) {
 			slug: titleRef.current?.value.toLowerCase().replaceAll(" ", "-") ?? "",
 			title: titleRef.current?.value ?? "",
 			image: imageRef.current?.value ?? "",
-			description: descRef.current?.value ?? "",
+			description: descriptionRef.current?.value ?? "",
+			servings: parseInt(servingsRef?.current?.value as string) || 0,
 			details: recipeDetails,
+			ingredients: ingredients,
 		};
 
 		addRecipeHandler(recipeData);
@@ -92,7 +104,18 @@ function RecipeForm(props: any) {
 						className="appearance-none block w-full bg-gray-700 text-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-gray-500"
 						type="text"
 						placeholder="Description..."
-						ref={descRef}
+						ref={descriptionRef}
+					/>
+				</div>
+				<div className="flex flex-wrap mx-3 mb-6">
+					<label className="block uppercase tracking-wide mx-auto text-gray-400 text-xs font-bold mb-2">
+						Servings
+					</label>
+					<input
+						className="appearance-none block w-full bg-gray-700 text-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-gray-500"
+						type="number"
+						placeholder="Servings Count..."
+						ref={descriptionRef}
 					/>
 				</div>
 				<div className="flex flex-wrap mx-3 mb-6">
@@ -100,12 +123,8 @@ function RecipeForm(props: any) {
 						Ingredients
 					</label>
 					<IngredientsTable
-						ingredients={[]}
-						onIngredientsChange={function (
-							ingredients: IngredientsType[]
-						): void {
-							// throw new Error("Function not implemented.");
-						}}
+						ingredients={ingredients}
+						onIngredientsChange={handleIngredients}
 					/>
 				</div>
 				{detailFields.map((input, index) => {
