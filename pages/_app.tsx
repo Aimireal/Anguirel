@@ -6,10 +6,12 @@ import { Navigation } from "@/components/navigation/Navigation";
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
-		<Fragment>
+		<div className="min-h-screen bg-[url('../public/background.svg')]">
 			<Navigation />
-			<Component {...pageProps} />
-		</Fragment>
+			<div className="mt-4">
+				<Component {...pageProps} />
+			</div>
+		</div>
 	);
 }
 

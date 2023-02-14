@@ -45,7 +45,7 @@ const Home = (props: PropsType) => {
 				<title>Anguirel</title>
 				<meta name="description" content="recipes" />
 			</Head>
-			<div className="min-h-screen bg-[url('../public/background.svg')]">
+			<div>
 				<HomepageCard />
 				<RecipeGrid recipes={props.recipes} />
 			</div>
