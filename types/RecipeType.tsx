@@ -1,9 +1,12 @@
+import { IngredientsType } from "./IngredientsType";
+
 export type RecipeType = {
 	id?: string;
 	slug: string;
 	title: string;
 	image: string;
 	description: string;
+	servings?: number;
 	details?: RecipeDetails[];
 	ingredients?: IngredientsType[];
 };
@@ -11,10 +14,4 @@ export type RecipeType = {
 export type RecipeDetails = {
     id: number;
     text: string;
-}
-
-export type IngredientsType = {
-	category?: string;
-	text: string;
-	quantity: string;
 }
