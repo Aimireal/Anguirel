@@ -1,4 +1,3 @@
-import { Ingredient } from "@/types/IngredientsType";
 import { RecipeDetails, RecipeType } from "@/types/RecipeType";
 import { ChangeEvent, useRef, useState } from "react";
 
@@ -51,6 +50,7 @@ function RecipeForm(props: any) {
 			description: descRef.current?.value ?? "",
 			details: recipeDetails,
 		};
+
 		addRecipeHandler(recipeData);
 	};
 
@@ -101,7 +101,7 @@ function RecipeForm(props: any) {
 							</label>
 							<div className="grid grid-flow-row mx-3 mb-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
 								<div className="col-span-1 flex flex-col">
-									<textarea
+									<textarea 
 										className="appearance-none block w-full bg-gray-700 text-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-gray-500"
 										placeholder="What you did..."
 										value={input.text}

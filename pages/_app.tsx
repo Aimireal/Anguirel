@@ -1,8 +1,8 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 
-import { Fragment } from "react";
 import { Navigation } from "@/components/navigation/Navigation";
+import { Footer } from "@/components/footer/Footer";
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
@@ -10,6 +10,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 			<Navigation />
 			<div className="mt-4">
 				<Component {...pageProps} />
+			</div>
+			<div className="mt-4">
+				<Footer />
 			</div>
 		</div>
 	);
