@@ -1,22 +1,24 @@
 import { IngredientsType } from "@/types/IngredientsType";
 import { RecipeDetails, RecipeType } from "@/types/RecipeType";
 import { ChangeEvent, useRef, useState } from "react";
+import { UploadImage } from "utils/UploadImage";
 import { IngredientsTable } from "../ingredientsTable/IngredientsTable";
 
 function RecipeForm(props: any) {
 	const { addRecipeHandler } = props;
 
+	// Form state
 	const titleRef = useRef<HTMLInputElement>(null);
-	const imageRef = useRef<HTMLInputElement>(null);
 	const descriptionRef = useRef<HTMLInputElement>(null);
 	const servingsRef = useRef<HTMLInputElement>(null);
 
+	// Ingredients state
 	const [ingredients, setIngredients] = useState<IngredientsType[]>([]);
 	function handleIngredients(newIngredients: IngredientsType[]) {
 		setIngredients(newIngredients);
 	}
 
-	// State for Steps
+	// Recipe steps state
 	const [detailFields, setDetailFields] = useState<RecipeDetails[]>([
 		{ id: 0, text: "" },
 	]);
@@ -39,16 +41,24 @@ function RecipeForm(props: any) {
 		setDetailFields([...detailFields, newfield]);
 	};
 
-	// ToDO: Reactively update label ID's on change
 	const removeSteps = (e: any, index: number) => {
 		e.preventDefault();
 		let data = [...detailFields];
-		data.splice(index, 1);
+		data.splice(index, 1); // ToDO: Reactively update label ID's on change
 		setDetailFields(data);
 	};
 
-	const onIngredientsChange = (ingredients: IngredientsType[]) => {
-		console.log(`Ingredients Changed`);
+	// File upload state
+	const [imageURL, setImageURL] = useState<string>("");
+	const handleFileSelect = async (
+		event: React.ChangeEvent<HTMLInputElement>
+	) => {
+		const imageFile = event.target.files && event.target.files[0];
+		if (imageFile !== null) {
+			const response = await UploadImage(imageFile);
+			console.log("Image uploaded successfully");
+			setImageURL(response);
+		}
 	};
 
 	const recipeSubmitHandler = (e: any) => {
@@ -58,7 +68,7 @@ function RecipeForm(props: any) {
 		const recipeData: RecipeType = {
 			slug: titleRef.current?.value.toLowerCase().replaceAll(" ", "-") ?? "",
 			title: titleRef.current?.value ?? "",
-			image: imageRef.current?.value ?? "",
+			image: imageURL,
 			description: descriptionRef.current?.value ?? "",
 			servings: parseInt(servingsRef?.current?.value as string) || 0,
 			details: recipeDetails,
@@ -87,13 +97,13 @@ function RecipeForm(props: any) {
 				</div>
 				<div className="flex flex-wrap mx-3 mb-6">
 					<label className="block uppercase tracking-wide mx-auto text-gray-400 text-xs font-bold mb-2">
-						Image URL
+						Image Upload
 					</label>
 					<input
 						className="appearance-none block w-full bg-gray-700 text-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-gray-500"
-						type="text"
-						placeholder="Image URL..."
-						ref={imageRef}
+						type="file"
+						placeholder="Select File"
+						onChange={handleFileSelect}
 					/>
 				</div>
 				<div className="flex flex-wrap mx-3 mb-6">
