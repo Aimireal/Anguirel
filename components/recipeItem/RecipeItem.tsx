@@ -1,6 +1,8 @@
 import { useRouter } from "next/router";
 import { RecipeType } from "@/types/RecipeType";
 import { Fragment } from "react";
+import { IngredientsTable } from "../ingredientsTable/IngredientsTable";
+import { IngredientsType } from "@/types/IngredientsType";
 
 function RecipeItem(recipe: RecipeType) {
 	const router = useRouter();
@@ -51,8 +53,16 @@ function RecipeItem(recipe: RecipeType) {
 						</button>
 					</div>
 				)}
-				{hasDetails === true ? (
+				{recipe.ingredients !== undefined && hasDetails === true ? (
 					<Fragment>
+						<div>
+							<IngredientsTable
+								ingredients={recipe.ingredients}
+								onIngredientsChange={function (
+									ingredients: IngredientsType[]
+								): void {}}
+							/>
+						</div>
 						<div>{renderedDetails()}</div>
 					</Fragment>
 				) : null}
