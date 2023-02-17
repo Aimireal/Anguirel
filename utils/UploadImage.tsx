@@ -1,11 +1,12 @@
 export async function UploadImage(image: File): Promise<string> {
 	const formData = new FormData();
-	formData.append("image", image);
+	formData.append("file", image);
 
 	const response = await fetch("https://api.imgur.com/3/image", {
 		method: "POST",
 		headers: {
 			Authorization: `Client-ID ${process.env.IMGUR_CLIENT_ID ?? ""}`,
+			Accept: "application/json",
 		},
 		body: formData,
 	});

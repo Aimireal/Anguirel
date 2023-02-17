@@ -53,15 +53,20 @@ export async function getStaticProps(context: Document) {
 			title: request.title,
 			image: request.image,
 			description: request.description,
+			servings: request.servings,
 			details: request.details,
+			ingredients: request.ingradients
 		};
 
 		return {
 			props: {
+				viewMode: true,
 				title: recipe.title,
 				image: request.image,
 				description: request.description,
+				servings: request.servings,
 				details: request.details,
+				ingredients: request.ingredients,
 			},
 		};
 	}

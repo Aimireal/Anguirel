@@ -53,17 +53,20 @@ function RecipeItem(recipe: RecipeType) {
 						</button>
 					</div>
 				)}
+				{hasDetails === true ? (
+					<Fragment>
+						<div>{renderedDetails()}</div>
+					</Fragment>
+				) : null}
 				{recipe.ingredients !== undefined && hasDetails === true ? (
 					<Fragment>
 						<div>
 							<IngredientsTable
 								ingredients={recipe.ingredients}
-								onIngredientsChange={function (
-									ingredients: IngredientsType[]
-								): void {}}
+								onIngredientsChange={() => {}}
+								viewMode={true}
 							/>
 						</div>
-						<div>{renderedDetails()}</div>
 					</Fragment>
 				) : null}
 			</a>

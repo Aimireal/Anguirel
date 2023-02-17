@@ -135,6 +135,7 @@ function RecipeForm(props: any) {
 					<IngredientsTable
 						ingredients={ingredients}
 						onIngredientsChange={handleIngredients}
+						viewMode={false}
 					/>
 				</div>
 				{detailFields.map((input, index) => {

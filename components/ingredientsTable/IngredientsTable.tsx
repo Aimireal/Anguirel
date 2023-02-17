@@ -4,11 +4,13 @@ import React, { useState } from "react";
 interface IngredientsTableProps {
 	ingredients: IngredientsType[];
 	onIngredientsChange: (ingredients: IngredientsType[]) => void;
+	viewMode: boolean;
 }
 
 export const IngredientsTable: React.FC<IngredientsTableProps> = ({
 	ingredients,
 	onIngredientsChange,
+	viewMode,
 }) => {
 	const [editableIngredients, setEditableIngredients] =
 		useState<IngredientsType[]>(ingredients);
@@ -63,9 +65,11 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({
 					<th className="uppercase tracking-wide mx-auto text-gray-400 text-xs font-bold mb-2">
 						Unit
 					</th>
-					<th className="uppercase tracking-wide mx-auto text-gray-400 text-xs font-bold mb-2">
-						Actions
-					</th>
+					{viewMode === true ? null : (
+						<th className="uppercase tracking-wide mx-auto text-gray-400 text-xs font-bold mb-2">
+							Actions
+						</th>
+					)}
 				</tr>
 			</thead>
 			<tbody>
@@ -75,6 +79,7 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({
 							<input
 								className="w-full py-2 px-3 rounded bg-gray-700 text-gray-200"
 								type="text"
+								disabled={viewMode}
 								value={ingredient.name}
 								onChange={(e) => {
 									e.preventDefault();
@@ -86,6 +91,7 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({
 							<input
 								className="w-full py-2 px-3 rounded bg-gray-700 text-gray-200"
 								type="number"
+								disabled={viewMode}
 								value={ingredient.quantity}
 								onChange={(e) => {
 									e.preventDefault();
@@ -97,6 +103,7 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({
 							<input
 								className="w-full py-2 px-3 rounded bg-gray-700 text-gray-200"
 								type="text"
+								disabled={viewMode}
 								value={ingredient.unit}
 								onChange={(e) => {
 									e.preventDefault();
@@ -104,33 +111,39 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({
 								}}
 							/>
 						</td>
-						<td>
-							<button
-								className="bg-red-500 text-white px-2 py-1 rounded-lg"
-								onClick={(e) => {
-									e.preventDefault();
-									handleRemoveRow(index);
-								}}
-							>
-								Remove
-							</button>
-						</td>
+						{viewMode === true ? null : (
+							<td>
+								<button
+									className="bg-red-500 text-white px-2 py-1 rounded-lg"
+									disabled={viewMode}
+									onClick={(e) => {
+										e.preventDefault();
+										handleRemoveRow(index);
+									}}
+								>
+									Remove
+								</button>
+							</td>
+						)}
 					</tr>
 				))}
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colSpan={3}>
-						<button
-							className="bg-green-500 text-white px-2  py-1 rounded-lg"
-							onClick={(e) => {
-                                e.preventDefault();
-								handleAddRow();
-							}}
-						>
-							Add Ingredient
-						</button>
-					</td>
+					{viewMode === true ? null : (
+						<td colSpan={3}>
+							<button
+								className="bg-green-500 text-white px-2  py-1 rounded-lg"
+								disabled={viewMode}
+								onClick={(e) => {
+									e.preventDefault();
+									handleAddRow();
+								}}
+							>
+								Add Ingredient
+							</button>
+						</td>
+					)}
 				</tr>
 			</tfoot>
 		</table>
