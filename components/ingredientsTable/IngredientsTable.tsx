@@ -17,7 +17,10 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({
 	const [tableTitle, setTableTitle] = useState<string>(title);
 	function handleTitleChange(event: React.ChangeEvent<HTMLInputElement>) {
 		setTableTitle(event.target.value);
-		onIngredientsChange({tableTitle: tableTitle, tableData: editableIngredients});
+		onIngredientsChange({
+			tableTitle: tableTitle,
+			tableData: editableIngredients,
+		});
 	}
 
 	const [editableIngredients, setEditableIngredients] =
@@ -27,21 +30,21 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({
 		const newIngredients = [...editableIngredients];
 		newIngredients[index].name = name;
 		setEditableIngredients(newIngredients);
-		onIngredientsChange({tableTitle: tableTitle, tableData: newIngredients});
+		onIngredientsChange({ tableTitle: tableTitle, tableData: newIngredients });
 	};
 
 	const handleAmountChange = (index: number, amount: number) => {
 		const newIngredients = [...editableIngredients];
 		newIngredients[index].quantity = amount;
 		setEditableIngredients(newIngredients);
-		onIngredientsChange({tableTitle: tableTitle, tableData: newIngredients});
+		onIngredientsChange({ tableTitle: tableTitle, tableData: newIngredients });
 	};
 
 	const handleMeasurementChange = (index: number, measurement: string) => {
 		const newIngredients = [...editableIngredients];
 		newIngredients[index].unit = measurement;
 		setEditableIngredients(newIngredients);
-		onIngredientsChange({tableTitle: tableTitle, tableData: newIngredients});
+		onIngredientsChange({ tableTitle: tableTitle, tableData: newIngredients });
 	};
 
 	const handleAddRow = () => {
@@ -50,25 +53,41 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({
 			{ name: "", quantity: 0, unit: "" },
 		];
 		setEditableIngredients(newIngredients);
-		onIngredientsChange({tableTitle: tableTitle, tableData: newIngredients});
+		onIngredientsChange({ tableTitle: tableTitle, tableData: newIngredients });
 	};
 
 	const handleRemoveRow = (index: number) => {
 		const newIngredients: IngredientsType[] = [...editableIngredients];
 		newIngredients.splice(index, 1);
 		setEditableIngredients(newIngredients);
-		onIngredientsChange({tableTitle: tableTitle, tableData: newIngredients});
+		onIngredientsChange({ tableTitle: tableTitle, tableData: newIngredients });
 	};
 
-	return (
-		<Fragment>
+	const titleDisplayComponent = () => {
+		return (
+			<label className="mt-6 block uppercase tracking-wide mx-auto text-gray-400 text-m font-bold mb-2">
+				Ingredients: {tableTitle}
+			</label>
+		);
+	};
+
+	const titleInputComponent = () => {
+		return (
 			<input
-				className="appearance-none block w-full bg-gray-700 text-gray-200 rounded py-3 px-4 mb-2 leading-tight focus:outline-none focus:bg-gray-500"
+				className="appearance-none block w-full bg-gray-700 text-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-gray-500"
 				type="text"
 				placeholder="For the..."
 				onChange={handleTitleChange}
 				value={tableTitle}
 			/>
+		);
+	};
+
+	return (
+		<Fragment>
+			<Fragment>
+				{viewMode === true ? titleDisplayComponent() : titleInputComponent()}
+			</Fragment>
 			<table className="w-full">
 				<thead>
 					<tr>
