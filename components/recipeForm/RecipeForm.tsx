@@ -56,16 +56,15 @@ function RecipeForm(props: any) {
 
 	// File upload state
 	const [imageURL, setImageURL] = useState<string>("");
-	const handleFileSelect = async (
-		event: React.ChangeEvent<HTMLInputElement>
-	) => {
+	async function handleImageUpload(event: React.ChangeEvent<HTMLInputElement>) {
 		const imageFile = event.target.files && event.target.files[0];
-		if (imageFile !== null) {
-			const response = await UploadImage(imageFile);
-			console.log("Image uploaded successfully");
-			setImageURL(response);
+		if (imageFile === null) {
+			return;
 		}
-	};
+
+		const response = await UploadImage(imageFile);
+		setImageURL(response);
+	}
 
 	const recipeSubmitHandler = (e: any) => {
 		e.preventDefault();
@@ -109,7 +108,7 @@ function RecipeForm(props: any) {
 						className="appearance-none block w-full bg-gray-700 text-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-gray-500"
 						type="file"
 						placeholder="Select File"
-						onChange={handleFileSelect}
+						onChange={handleImageUpload}
 					/>
 				</div>
 				<div className="flex flex-wrap mx-3 mb-6">
