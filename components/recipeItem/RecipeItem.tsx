@@ -27,6 +27,21 @@ function RecipeItem(recipe: RecipeType) {
 		});
 	};
 
+	const renderedIngredients = () => {
+		return recipe.ingredients?.map((ingredientsTable) => {
+			return (
+				<div className="mx-4 my-4">
+					<IngredientsTable
+						title={ingredientsTable.tableTitle}
+						ingredients={ingredientsTable.tableData}
+						onIngredientsChange={function () {}}
+						viewMode={true}
+					/>
+				</div>
+			);
+		});
+	};
+
 	return (
 		<div className="mx-4 my-8 rounded shadow-lg shadow-gray-200 dark:shadow-gray-900 bg-white dark:bg-gray-800 duration-300 hover:-translate-y-1">
 			<a key={recipe.id} href={recipe.slug} className="cursor-pointer">
@@ -53,21 +68,9 @@ function RecipeItem(recipe: RecipeType) {
 						</button>
 					</div>
 				)}
-				{hasDetails === true ? (
-					<Fragment>
-						<div>{renderedDetails()}</div>
-					</Fragment>
-				) : null}
+				{hasDetails === true ? <Fragment>{renderedDetails()}</Fragment> : null}
 				{recipe.ingredients !== undefined && hasDetails === true ? (
-					<Fragment>
-						<div>
-							<IngredientsTable
-								ingredients={recipe.ingredients}
-								onIngredientsChange={() => {}}
-								viewMode={true}
-							/>
-						</div>
-					</Fragment>
+					<Fragment>{renderedIngredients()}</Fragment>
 				) : null}
 			</a>
 		</div>
