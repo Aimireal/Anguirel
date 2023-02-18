@@ -131,7 +131,7 @@ function RecipeForm(props: any) {
 						className="appearance-none block w-full bg-gray-700 text-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-gray-500"
 						type="number"
 						placeholder="Servings Count..."
-						ref={descriptionRef}
+						ref={servingsRef}
 					/>
 				</div>
 				<div className="flex flex-wrap mx-3 mb-6">
