@@ -1,4 +1,4 @@
-import { IngredientsType } from "@/types/IngredientsType";
+import { IngredientsTableType, IngredientsType } from "@/types/IngredientsType";
 import { RecipeDetails, RecipeType } from "@/types/RecipeType";
 import { ChangeEvent, useRef, useState } from "react";
 import { UploadImage } from "utils/UploadImage";
@@ -13,9 +13,15 @@ function RecipeForm(props: any) {
 	const servingsRef = useRef<HTMLInputElement>(null);
 
 	// Ingredients state
-	const [ingredients, setIngredients] = useState<IngredientsType[]>([]);
-	function handleIngredients(newIngredients: IngredientsType[]) {
-		setIngredients(newIngredients);
+	const [ingredients, setIngredients] = useState<IngredientsTableType[]>([
+		{ tableTitle: "", tableData: [] },
+	]);
+	function handleIngredients(newIngredients: IngredientsTableType) {
+		const ingredientsTable: IngredientsTableType = {
+			tableTitle: newIngredients.tableTitle,
+			tableData: newIngredients.tableData,
+		};
+		setIngredients([ingredientsTable]);
 	}
 
 	// Recipe steps state
@@ -44,7 +50,7 @@ function RecipeForm(props: any) {
 	const removeSteps = (e: any, index: number) => {
 		e.preventDefault();
 		let data = [...detailFields];
-		data.splice(index, 1); // ToDO: Reactively update label ID's on change
+		data.splice(index, 1); // ToDo: Reactively update label ID's on change
 		setDetailFields(data);
 	};
 
@@ -132,11 +138,15 @@ function RecipeForm(props: any) {
 					<label className="block uppercase tracking-wide mx-auto text-gray-400 text-xs font-bold mb-2">
 						Ingredients
 					</label>
-					<IngredientsTable
-						ingredients={ingredients}
-						onIngredientsChange={handleIngredients}
-						viewMode={false}
-					/>
+					{ingredients.map((ingredientsTable, tableIndex) => (
+						<IngredientsTable
+							key={tableIndex}
+							title={ingredientsTable.tableTitle}
+							ingredients={ingredientsTable.tableData}
+							onIngredientsChange={handleIngredients}
+							viewMode={false}
+						/>
+					))}
 				</div>
 				{detailFields.map((input, index) => {
 					return (

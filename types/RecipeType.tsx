@@ -1,4 +1,4 @@
-import { IngredientsType } from "./IngredientsType";
+import { IngredientsTableType } from "./IngredientsType";
 
 export type RecipeType = {
 	id?: string;
@@ -8,7 +8,7 @@ export type RecipeType = {
 	description: string;
 	servings?: number;
 	details?: RecipeDetails[];
-	ingredients?: IngredientsType[];
+	ingredients?: IngredientsTableType[];
 };
 
 export type RecipeDetails = {
