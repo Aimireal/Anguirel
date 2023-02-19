@@ -16,12 +16,14 @@ export async function UploadImage(imageFile: File): Promise<string> {
 	const imgurId = "0f4d305139ce00e";
 	const formData = new FormData();
 
-	const base64Image = await fileToBase64(imageFile);
+	const base64Image = fileToBase64(imageFile)
+		.toString()
+		.replace(/data:.*\/.*;base64,/, "");
 
 	if (base64Image !== null) {
 		formData.append("image", base64Image?.toString());
 
-		const response = await axios.post("https://api.imgur.com/3/upload", {
+		const response = await axios.post("https://api.imgur.com/3/image", {
 			headers: {
 				Authorization: `Client-ID ${imgurId}`,
 			},
