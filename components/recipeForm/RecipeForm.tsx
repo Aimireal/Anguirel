@@ -2,6 +2,7 @@ import { IngredientsTableType, IngredientsType } from "@/types/IngredientsType";
 import { RecipeDetails, RecipeType } from "@/types/RecipeType";
 import { ChangeEvent, useRef, useState } from "react";
 import { UploadImage } from "utils/UploadImage";
+import { ImageUpload } from "../imageUpload/ImageUpload";
 import { IngredientsTable } from "../ingredientsTable/IngredientsTable";
 
 function RecipeForm(props: any) {
@@ -56,13 +57,8 @@ function RecipeForm(props: any) {
 
 	// File upload state
 	const [imageURL, setImageURL] = useState<string>("");
-	async function handleImageUpload(event: React.ChangeEvent<HTMLInputElement>) {
-		const imageFile = event.target.files && event.target.files[0];
-		if (imageFile === null) {
-			return;
-		}
-
-		const response = await UploadImage(imageFile);
+	async function handleImageSelected(file: File) {
+		const response = await UploadImage(file);
 		setImageURL(response);
 	}
 
@@ -104,12 +100,7 @@ function RecipeForm(props: any) {
 					<label className="block uppercase tracking-wide mx-auto text-gray-400 text-xs font-bold mb-2">
 						Image Upload
 					</label>
-					<input
-						className="appearance-none block w-full bg-gray-700 text-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-gray-500"
-						type="file"
-						placeholder="Select File"
-						onChange={handleImageUpload}
-					/>
+					<ImageUpload onImageSelected={handleImageSelected} />
 				</div>
 				<div className="flex flex-wrap mx-3 mb-6">
 					<label className="block uppercase tracking-wide mx-auto text-gray-400 text-xs font-bold mb-2">
