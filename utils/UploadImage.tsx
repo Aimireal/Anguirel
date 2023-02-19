@@ -1,36 +1,28 @@
 import axios, { AxiosResponse } from "axios";
 
-function fileToBase64(file: File): Promise<string | ArrayBuffer | null> {
-	return new Promise((resolve, reject) => {
-		const reader = new FileReader();
-		reader.readAsDataURL(file);
-		reader.onload = () => {
-			const base64String = reader.result;
-			resolve(base64String);
-		};
-		reader.onerror = (error) => reject(error);
-	});
-}
-
 export async function UploadImage(imageFile: File): Promise<string> {
-	const imgurId = "0f4d305139ce00e";
-	const formData = new FormData();
+	const clientId = process.env.IMGUR_CLIENT_ID;
+	var formData = require("form-data");
+	formData.append("image", imageFile);
 
-	const base64Image = fileToBase64(imageFile)
-		.toString()
-		.replace(/data:.*\/.*;base64,/, "");
+	var config = {
+		method: "post",
+		url: "https://api.imgur.com/3/image",
+		headers: {
+			Authorization: "Client-ID " + clientId,
+			...formData.getHeaders(),
+		},
+		data: FormData,
+	};
 
-	if (base64Image !== null) {
-		formData.append("image", base64Image?.toString());
-
-		const response = await axios.post("https://api.imgur.com/3/image", {
-			headers: {
-				Authorization: `Client-ID ${imgurId}`,
-			},
-			body: formData,
+	axios(config)
+		.then(function (response) {
+			console.log(response.data.link);
+			return response.data.link;
+		})
+		.catch(function (error) {
+			console.log(error);
 		});
 
-		return response.data.data.link;
-	}
-	return "Error";
+	return "";
 }
