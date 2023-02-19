@@ -5,7 +5,7 @@ export async function UploadImage(imageFile: File): Promise<string> {
 	const formData = new FormData();
 	formData.append("image", imageFile);
 
-	const response = await axios.post("https://api.imgur.com/3/image", {
+	const response = await axios.post("https://api.imgur.com/3/upload", {
 		headers: {
 			Authorization: `Client-ID ${imgurId}`,
 		},
