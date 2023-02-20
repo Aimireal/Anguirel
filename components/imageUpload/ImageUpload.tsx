@@ -15,7 +15,7 @@ export function ImageUpload({ onImageUpload }: Props): JSX.Element {
 		}
 	}
 
-	async function handleFormSubmitted(event: FormEvent<HTMLFormElement>) {
+	async function handleUpload(event: FormEvent<HTMLButtonElement>) {
 		event.preventDefault();
 
 		if (selectedFile) {
@@ -27,7 +27,7 @@ export function ImageUpload({ onImageUpload }: Props): JSX.Element {
 	}
 
 	return (
-		<form onSubmit={handleFormSubmitted}>
+		<Fragment>
 			<input
 				className="appearance-none block w-full bg-gray-700 text-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-gray-500"
 				accept="image/*"
@@ -36,9 +36,13 @@ export function ImageUpload({ onImageUpload }: Props): JSX.Element {
 				onChange={handleFileSelected}
 				disabled={isUploading}
 			/>
-			<button type="submit" disabled={!selectedFile || isUploading}>
+			<button
+				className="px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 mx-auto"
+				onClick={(e) => handleUpload(e)}
+				disabled={!selectedFile || isUploading}
+			>
 				Upload to Anguirel
 			</button>
-		</form>
+		</Fragment>
 	);
 }
