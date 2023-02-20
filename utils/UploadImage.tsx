@@ -1,28 +1,24 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 export async function UploadImage(imageFile: File): Promise<string> {
 	const clientId = process.env.IMGUR_CLIENT_ID;
 	var formData = require("form-data");
 	formData.append("image", imageFile);
 
-	var config = {
-		method: "post",
-		url: "https://api.imgur.com/3/image",
-		headers: {
-			Authorization: "Client-ID " + clientId,
-			...formData.getHeaders(),
-		},
-		data: FormData,
-	};
-
-	axios(config)
-		.then(function (response) {
-			console.log(response.data.link);
-			return response.data.link;
-		})
-		.catch(function (error) {
-			console.log(error);
-		});
-
-	return "";
+	try {
+		const response = await axios.post(
+			"https://api.imgur.com/3/image",
+			formData,
+			{
+				headers: {
+					Authorization: "Client-ID " + clientId,
+					"Content-Type": "multipart/form-data",
+				},
+			}
+		);
+		return response.data.link;
+	} catch (error) {
+		console.error("Failed to upload image:", error);
+		throw error;
+	}
 }

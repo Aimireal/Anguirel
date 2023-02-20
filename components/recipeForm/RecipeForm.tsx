@@ -1,7 +1,6 @@
-import { IngredientsTableType, IngredientsType } from "@/types/IngredientsType";
+import { IngredientsTableType } from "@/types/IngredientsType";
 import { RecipeDetails, RecipeType } from "@/types/RecipeType";
 import { ChangeEvent, useRef, useState } from "react";
-import { UploadImage } from "utils/UploadImage";
 import { ImageUpload } from "../imageUpload/ImageUpload";
 import { IngredientsTable } from "../ingredientsTable/IngredientsTable";
 
@@ -56,10 +55,9 @@ function RecipeForm(props: any) {
 	};
 
 	// File upload state
-	const [imageURL, setImageURL] = useState<string>("");
-	async function handleImageSelected(file: File) {
-		const response = await UploadImage(file);
-		setImageURL(response);
+	const [imageUrl, setImageUrl] = useState<string>("");
+	function handleImageUpload(url: string) {
+		setImageUrl(url);
 	}
 
 	const recipeSubmitHandler = (e: any) => {
@@ -69,7 +67,7 @@ function RecipeForm(props: any) {
 		const recipeData: RecipeType = {
 			slug: titleRef.current?.value.toLowerCase().replaceAll(" ", "-") ?? "",
 			title: titleRef.current?.value ?? "",
-			image: imageURL,
+			image: imageUrl,
 			description: descriptionRef.current?.value ?? "",
 			servings: parseInt(servingsRef?.current?.value as string) || 0,
 			details: recipeDetails,
@@ -100,7 +98,7 @@ function RecipeForm(props: any) {
 					<label className="block uppercase tracking-wide mx-auto text-gray-400 text-xs font-bold mb-2">
 						Image Upload
 					</label>
-					<ImageUpload onImageSelected={handleImageSelected} />
+					<ImageUpload onImageUpload={handleImageUpload} />
 				</div>
 				<div className="flex flex-wrap mx-3 mb-6">
 					<label className="block uppercase tracking-wide mx-auto text-gray-400 text-xs font-bold mb-2">
