@@ -12,7 +12,6 @@ export async function UploadImage(imageFile: File): Promise<string> {
 			{
 				headers: {
 					Authorization: "Client-ID " + clientId,
-					"Content-Type": "multipart/form-data",
 				},
 			}
 		);
