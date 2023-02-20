@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export async function UploadImage(imageFile: File): Promise<string> {
-	const clientId = process.env.IMGUR_CLIENT_ID;
+	const connectionString = process.env.IMGUR_CLIENT_ID ?? "";
 	var formData = new FormData();
 	formData.append("image", imageFile);
 
@@ -11,7 +11,7 @@ export async function UploadImage(imageFile: File): Promise<string> {
 			formData,
 			{
 				headers: {
-					Authorization: "Client-ID 0f4d305139ce00e",
+					Authorization: `Client-ID ${connectionString}`,
 				},
 			}
 		);

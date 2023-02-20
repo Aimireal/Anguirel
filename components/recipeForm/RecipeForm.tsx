@@ -58,6 +58,7 @@ function RecipeForm(props: any) {
 	const [imageUrl, setImageUrl] = useState<string>("");
 	function handleImageUpload(url: string) {
 		setImageUrl(url);
+		console.log(`Image Upload ${url}`);
 	}
 
 	const recipeSubmitHandler = (e: any) => {
@@ -67,7 +68,7 @@ function RecipeForm(props: any) {
 		const recipeData: RecipeType = {
 			slug: titleRef.current?.value.toLowerCase().replaceAll(" ", "-") ?? "",
 			title: titleRef.current?.value ?? "",
-			image: imageUrl,
+			image: imageUrl ?? "",
 			description: descriptionRef.current?.value ?? "",
 			servings: parseInt(servingsRef?.current?.value as string) || 0,
 			details: recipeDetails,
