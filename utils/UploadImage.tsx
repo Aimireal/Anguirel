@@ -1,7 +1,8 @@
 import axios from "axios";
 
+const clientId = process.env.IMGUR_CLIENT_ID;
+
 export async function UploadImage(imageFile: File): Promise<string> {
-	const clientId = process.env.IMGUR_CLIENT_ID;
 	var formData = new FormData();
 	formData.append("image", imageFile);
 
