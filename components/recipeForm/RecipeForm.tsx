@@ -58,7 +58,6 @@ function RecipeForm(props: any) {
 	const [imageUrl, setImageUrl] = useState<string>("");
 	function handleImageUpload(url: string) {
 		setImageUrl(url);
-		console.log(`Image Upload ${url}`);
 	}
 
 	const recipeSubmitHandler = (e: any) => {

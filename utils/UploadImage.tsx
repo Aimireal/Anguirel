@@ -15,7 +15,7 @@ export async function UploadImage(imageFile: File): Promise<string> {
 				},
 			}
 		);
-		return response.data.link;
+		return response.data.data.link;
 	} catch (error) {
 		console.error("Failed to upload image:", error);
 		throw error;

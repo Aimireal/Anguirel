@@ -4,7 +4,7 @@ import { UploadImage } from "utils/UploadImage";
 interface Props {
 	onImageUpload: (url: string) => void;
 }
-export function ImageUpload({ onImageUpload }: Props): JSX.Element {
+export const ImageUpload: React.FC<Props> = ({ onImageUpload }) => {
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
 	const [isUploading, setIsUploading] = useState<boolean>(false);
 
@@ -17,7 +17,7 @@ export function ImageUpload({ onImageUpload }: Props): JSX.Element {
 
 	async function handleUpload(event: FormEvent<HTMLButtonElement>) {
 		event.preventDefault();
-
+		
 		if (selectedFile) {
 			setIsUploading(true);
 			const url = await UploadImage(selectedFile);
