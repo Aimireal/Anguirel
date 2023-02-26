@@ -13,9 +13,9 @@ function RecipeItem(recipe: RecipeType) {
 	// Conditional rendering for recipe steps
 	const hasDetails = Object.hasOwn(recipe, "details");
 	const renderedDetails = () => {
-		return recipe.details?.map((detail) => {
+		return recipe.details?.map((detail, index) => {
 			return (
-				<Fragment key={detail.id}>
+				<Fragment key={index}>
 					<label className="mx-4 uppercase tracking-wide text-gray-400 text-xs font-bold">
 						Step: {detail.id + 1}
 					</label>
@@ -28,9 +28,9 @@ function RecipeItem(recipe: RecipeType) {
 	};
 
 	const renderedIngredients = () => {
-		return recipe.ingredients?.map((ingredientsTable) => {
+		return recipe.ingredients?.map((ingredientsTable, index) => {
 			return (
-				<div className="mx-4 my-4">
+				<div className="mx-4 my-4" key={index}>
 					<IngredientsTable
 						title={ingredientsTable.tableTitle}
 						ingredients={ingredientsTable.tableData}
