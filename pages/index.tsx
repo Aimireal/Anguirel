@@ -47,12 +47,11 @@ const Home = (props: PropsType) => {
 				<meta name="description" content="recipes" />
 			</Head>
 			<div>
-				{DeviceQuery() === DeviceType.mobile ? (
+				{DeviceQuery() === DeviceType.mobile ? null : (
 					<div>
 						<HomepageCard />
 					</div>
-				) : null}
-				<HomepageCard />
+				)}
 				<RecipeGrid recipes={props.recipes} />
 			</div>
 		</Fragment>
