@@ -6,6 +6,7 @@ import { RecipeType } from "@/types/RecipeType";
 import { PropsType } from "@/types/PropsType";
 import HomepageCard from "@/components/homepageCard/HomepageCard";
 import RecipeGrid from "@/components/recipeGrid/recipeGrid";
+import { DeviceQuery, DeviceType } from "utils/DeviceQuery";
 
 export async function getStaticProps() {
 	const connectionString = process.env.DB_RECIPES_CONNECTION ?? "";
@@ -46,6 +47,11 @@ const Home = (props: PropsType) => {
 				<meta name="description" content="recipes" />
 			</Head>
 			<div>
+				{DeviceQuery() === DeviceType.mobile ? (
+					<div>
+						<HomepageCard />
+					</div>
+				) : null}
 				<HomepageCard />
 				<RecipeGrid recipes={props.recipes} />
 			</div>
