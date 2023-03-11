@@ -2,6 +2,7 @@ import { IngredientsTableType, IngredientsType } from "@/types/IngredientsType";
 import React, { Fragment, useState } from "react";
 
 interface IngredientsTableProps {
+	id: number,
 	title: string;
 	ingredients: IngredientsType[];
 	onIngredientsChange: (ingredients: IngredientsTableType) => void;
@@ -9,6 +10,7 @@ interface IngredientsTableProps {
 }
 
 export const IngredientsTable: React.FC<IngredientsTableProps> = ({
+	id,
 	title,
 	ingredients,
 	onIngredientsChange,
@@ -18,6 +20,7 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({
 	function handleTitleChange(event: React.ChangeEvent<HTMLInputElement>) {
 		setTableTitle(event.target.value);
 		onIngredientsChange({
+			id: id,
 			tableTitle: tableTitle,
 			tableData: editableIngredients,
 		});
@@ -30,21 +33,21 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({
 		const newIngredients = [...editableIngredients];
 		newIngredients[index].name = name;
 		setEditableIngredients(newIngredients);
-		onIngredientsChange({ tableTitle: tableTitle, tableData: newIngredients });
+		onIngredientsChange({ id: id, tableTitle: tableTitle, tableData: newIngredients });
 	};
 
 	const handleAmountChange = (index: number, amount: number) => {
 		const newIngredients = [...editableIngredients];
 		newIngredients[index].quantity = amount;
 		setEditableIngredients(newIngredients);
-		onIngredientsChange({ tableTitle: tableTitle, tableData: newIngredients });
+		onIngredientsChange({ id: id, tableTitle: tableTitle, tableData: newIngredients });
 	};
 
 	const handleMeasurementChange = (index: number, measurement: string) => {
 		const newIngredients = [...editableIngredients];
 		newIngredients[index].unit = measurement;
 		setEditableIngredients(newIngredients);
-		onIngredientsChange({ tableTitle: tableTitle, tableData: newIngredients });
+		onIngredientsChange({ id: id, tableTitle: tableTitle, tableData: newIngredients });
 	};
 
 	const handleAddRow = () => {
@@ -53,14 +56,14 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({
 			{ name: "", quantity: 0, unit: "" },
 		];
 		setEditableIngredients(newIngredients);
-		onIngredientsChange({ tableTitle: tableTitle, tableData: newIngredients });
+		onIngredientsChange({ id: id, tableTitle: tableTitle, tableData: newIngredients });
 	};
 
 	const handleRemoveRow = (index: number) => {
 		const newIngredients: IngredientsType[] = [...editableIngredients];
 		newIngredients.splice(index, 1);
 		setEditableIngredients(newIngredients);
-		onIngredientsChange({ tableTitle: tableTitle, tableData: newIngredients });
+		onIngredientsChange({ id: id, tableTitle: tableTitle, tableData: newIngredients });
 	};
 
 	const titleDisplayComponent = () => {

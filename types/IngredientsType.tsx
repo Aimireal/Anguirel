@@ -1,4 +1,5 @@
 export type IngredientsTableType = {
+	id: number;
 	tableTitle: string;
 	tableData: IngredientsType[];
 }

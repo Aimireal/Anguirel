@@ -1,6 +1,6 @@
 import { IngredientsTableType } from "@/types/IngredientsType";
 import { RecipeDetails, RecipeType } from "@/types/RecipeType";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, Fragment, useRef, useState } from "react";
 import { ImageUpload } from "../imageUpload/ImageUpload";
 import { IngredientsTable } from "../ingredientsTable/IngredientsTable";
 
@@ -14,15 +14,36 @@ function RecipeForm(props: any) {
 
 	// Ingredients state
 	const [ingredients, setIngredients] = useState<IngredientsTableType[]>([
-		{ tableTitle: "", tableData: [] },
+		{ id: 0, tableTitle: "", tableData: [] },
 	]);
+
 	function handleIngredients(newIngredients: IngredientsTableType) {
+		const ingredientsTables = [...ingredients];
 		const ingredientsTable: IngredientsTableType = {
+			id: newIngredients.id,
 			tableTitle: newIngredients.tableTitle,
 			tableData: newIngredients.tableData,
 		};
-		setIngredients([ingredientsTable]);
+		ingredientsTables[newIngredients.id] = ingredientsTable;
+		setIngredients(ingredientsTables);
 	}
+
+	const addTables = (e: any) => {
+		e.preventDefault();
+		let newTable: IngredientsTableType = {
+			id: ingredients[ingredients.length - 1].id + 1,
+			tableTitle: "",
+			tableData: [],
+		};
+		setIngredients([...ingredients, newTable]);
+	};
+
+	const removeTables = (e: any, index: number) => {
+		e.preventDefault();
+		let data = [...ingredients];
+		data.splice(index, 1); // ToDo: Reactively update label ID's on change
+		setIngredients(data);
+	};
 
 	// Recipe steps state
 	const [detailFields, setDetailFields] = useState<RecipeDetails[]>([
@@ -127,14 +148,34 @@ function RecipeForm(props: any) {
 						Ingredients
 					</label>
 					{ingredients.map((ingredientsTable, tableIndex) => (
-						<IngredientsTable
-							key={tableIndex}
-							title={ingredientsTable.tableTitle}
-							ingredients={ingredientsTable.tableData}
-							onIngredientsChange={handleIngredients}
-							viewMode={false}
-						/>
+						<Fragment>
+							<IngredientsTable
+								key={tableIndex}
+								id={tableIndex}
+								title={ingredientsTable.tableTitle}
+								ingredients={ingredientsTable.tableData}
+								onIngredientsChange={handleIngredients}
+								viewMode={false}
+							/>
+							<div className="col-span-1 flex flex-col">
+								<button
+									key={tableIndex}
+									onClick={(e) => removeTables(e, tableIndex)}
+									className="px-4 py-2 font-bold text-white bg-red-600 rounded-full hover:bg-red-800 mx-auto"
+								>
+									Remove
+								</button>
+							</div>		
+						</Fragment>
 					))}
+				</div>
+				<div className="flex flex-wrap mx-3 mb-10">
+					<button
+						onClick={addTables}
+						className="px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 mx-auto"
+					>
+						Add Ingredients Table
+					</button>
 				</div>
 				{detailFields.map((input, index) => {
 					return (
