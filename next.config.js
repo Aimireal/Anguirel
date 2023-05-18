@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
+	env: {
+		CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
+	},
 	reactStrictMode: true,
 	typescript: {
 		// !! WARN !!
@@ -9,4 +12,3 @@ module.exports = {
 		ignoreBuildErrors: true,
 	},
 };
-

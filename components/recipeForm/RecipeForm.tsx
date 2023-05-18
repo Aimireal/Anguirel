@@ -119,7 +119,9 @@ function RecipeForm(props: any) {
 					<label className="block uppercase tracking-wide mx-auto text-gray-400 text-xs font-bold mb-2">
 						Image Upload
 					</label>
-					<ImageUpload onImageUpload={handleImageUpload} />
+					<div className="flex justify-center">
+						<ImageUpload onImageUpload={handleImageUpload} />
+					</div>
 				</div>
 				<div className="flex flex-wrap mx-3 mb-6">
 					<label className="block uppercase tracking-wide mx-auto text-gray-400 text-xs font-bold mb-2">
@@ -165,7 +167,7 @@ function RecipeForm(props: any) {
 								>
 									Remove
 								</button>
-							</div>		
+							</div>
 						</Fragment>
 					))}
 				</div>

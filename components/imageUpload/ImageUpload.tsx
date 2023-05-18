@@ -1,48 +1,70 @@
-import { ChangeEvent, FormEvent, Fragment, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import { UploadImage } from "utils/UploadImage";
 
 interface Props {
 	onImageUpload: (url: string) => void;
 }
+
 export const ImageUpload: React.FC<Props> = ({ onImageUpload }) => {
-	const [selectedFile, setSelectedFile] = useState<File | null>(null);
-	const [isUploading, setIsUploading] = useState<boolean>(false);
+	const fileInputRef = useRef<HTMLInputElement>(null);
+	const [file, setFile] = useState<File | null>(null);
+	const [uploadStatus, setUploadStatus] = useState<
+		"Select Image" | "Upload" | "Success"
+	>("Select Image");
 
-	async function handleFileSelected(event: ChangeEvent<HTMLInputElement>) {
-		const file = event.target.files?.[0];
-		if (file !== undefined) {
-			setSelectedFile(file);
-		}
-	}
-
-	async function handleUpload(event: FormEvent<HTMLButtonElement>) {
-		event.preventDefault();
-		
+	const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+		const selectedFile = event.target.files && event.target.files[0];
 		if (selectedFile) {
-			setIsUploading(true);
-			const url = await UploadImage(selectedFile);
-			onImageUpload(url);
-			setIsUploading(false);
+			setFile(selectedFile);
+			setUploadStatus("Upload");
 		}
-	}
+	};
+
+	const handleUpload = async () => {
+		if (file !== null) {
+			const url = await UploadImage(file);
+			onImageUpload(url);
+			setUploadStatus("Success");
+		}
+	};
+
+	const handleOpenFilePicker = () => {
+		if (fileInputRef.current) {
+			fileInputRef.current.click();
+		}
+	};
+
+	const buttonLabel =
+		uploadStatus === "Select Image"
+			? "Select Image"
+			: uploadStatus === "Upload"
+			? "Uploading..."
+			: "Success";
 
 	return (
-		<Fragment>
-			<input
-				className="appearance-none block w-full bg-gray-700 text-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-gray-500"
-				accept="image/*"
-				type="file"
-				placeholder="Select File"
-				onChange={handleFileSelected}
-				disabled={isUploading}
-			/>
+		<div className="inline-flex">
 			<button
-				className="px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 mx-auto"
-				onClick={(e) => handleUpload(e)}
-				disabled={!selectedFile || isUploading}
+				className={`px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 mx-auto ${
+					uploadStatus === "Success" && "opacity-50 cursor-not-allowed"
+				}`}
+				type="button"
+				onClick={
+					uploadStatus === "Success"
+						? undefined
+						: file
+						? handleUpload
+						: handleOpenFilePicker
+				}
 			>
-				Upload to Anguirel
+				{buttonLabel}
 			</button>
-		</Fragment>
+			<input
+				type="file"
+				accept="image/*"
+				onChange={handleFileChange}
+				ref={fileInputRef}
+				style={{ display: "none" }}
+			/>
+		</div>
 	);
-}
+};

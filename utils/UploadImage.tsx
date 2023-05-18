@@ -1,23 +1,19 @@
 import axios from "axios";
 
-export async function UploadImage(imageFile: File): Promise<string> {
-	const connectionString = process.env.IMGUR_CLIENT_ID ?? "";
-	var formData = new FormData();
-	formData.append("image", imageFile);
-
+export async function UploadImage(file: File): Promise<string> {
 	try {
+		const formData = new FormData();
+		formData.append("file", file);
+		formData.append("upload_preset", "ml_default");
+
 		const response = await axios.post(
-			"https://api.imgur.com/3/upload",
-			formData,
-			{
-				headers: {
-					Authorization: `Client-ID ${connectionString}`,
-				},
-			}
+			`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`,
+			formData
 		);
-		return response.data.data.link;
+
+		return response.data.secure_url;
 	} catch (error) {
-		console.error("Failed to upload image:", error);
+		console.error("Error uploading image:", error);
 		throw error;
 	}
 }
