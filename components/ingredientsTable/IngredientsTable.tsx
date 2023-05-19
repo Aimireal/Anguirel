@@ -1,8 +1,9 @@
 import { IngredientsTableType, IngredientsType } from "@/types/IngredientsType";
+import { MeasurementType, measurementValues } from "@/types/MeasurementType";
 import React, { Fragment, useState } from "react";
 
 interface IngredientsTableProps {
-	id: number,
+	id: number;
 	title: string;
 	ingredients: IngredientsType[];
 	onIngredientsChange: (ingredients: IngredientsTableType) => void;
@@ -33,37 +34,60 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({
 		const newIngredients = [...editableIngredients];
 		newIngredients[index].name = name;
 		setEditableIngredients(newIngredients);
-		onIngredientsChange({ id: id, tableTitle: tableTitle, tableData: newIngredients });
+		onIngredientsChange({
+			id: id,
+			tableTitle: tableTitle,
+			tableData: newIngredients,
+		});
 	};
 
 	const handleAmountChange = (index: number, amount: number) => {
 		const newIngredients = [...editableIngredients];
 		newIngredients[index].quantity = amount;
 		setEditableIngredients(newIngredients);
-		onIngredientsChange({ id: id, tableTitle: tableTitle, tableData: newIngredients });
+		onIngredientsChange({
+			id: id,
+			tableTitle: tableTitle,
+			tableData: newIngredients,
+		});
 	};
 
-	const handleMeasurementChange = (index: number, measurement: string) => {
+	const handleMeasurementChange = (
+		index: number,
+		measurement: MeasurementType
+	) => {
 		const newIngredients = [...editableIngredients];
 		newIngredients[index].unit = measurement;
 		setEditableIngredients(newIngredients);
-		onIngredientsChange({ id: id, tableTitle: tableTitle, tableData: newIngredients });
+		onIngredientsChange({
+			id: id,
+			tableTitle: tableTitle,
+			tableData: newIngredients,
+		});
 	};
 
 	const handleAddRow = () => {
 		const newIngredients: IngredientsType[] = [
 			...editableIngredients,
-			{ name: "", quantity: 0, unit: "" },
+			{ name: "", quantity: 0, unit: null },
 		];
 		setEditableIngredients(newIngredients);
-		onIngredientsChange({ id: id, tableTitle: tableTitle, tableData: newIngredients });
+		onIngredientsChange({
+			id: id,
+			tableTitle: tableTitle,
+			tableData: newIngredients,
+		});
 	};
 
 	const handleRemoveRow = (index: number) => {
 		const newIngredients: IngredientsType[] = [...editableIngredients];
 		newIngredients.splice(index, 1);
 		setEditableIngredients(newIngredients);
-		onIngredientsChange({ id: id, tableTitle: tableTitle, tableData: newIngredients });
+		onIngredientsChange({
+			id: id,
+			tableTitle: tableTitle,
+			tableData: newIngredients,
+		});
 	};
 
 	const titleDisplayComponent = () => {
@@ -138,16 +162,24 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({
 								/>
 							</td>
 							<td>
-								<input
+								<label htmlFor="measurement">Select a measurement:</label>
+								<select
 									className="w-full py-2 px-3 rounded bg-gray-700 text-gray-200"
-									type="text"
+									value={ingredient.unit || ""}
 									disabled={viewMode}
-									value={ingredient.unit}
 									onChange={(e) => {
 										e.preventDefault();
-										handleMeasurementChange(index, e.target.value);
+										var value = e.target.value as MeasurementType
+										handleMeasurementChange(index, value);
 									}}
-								/>
+								>
+									<option value="">Choose...</option>
+									{measurementValues.map((measurementValue) => (
+										<option key={measurementValue} value={measurementValue}>
+											{measurementValue}
+										</option>
+									))}
+								</select>
 							</td>
 							{viewMode === true ? null : (
 								<td>

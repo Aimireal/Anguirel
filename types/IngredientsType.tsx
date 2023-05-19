@@ -1,3 +1,5 @@
+import { MeasurementType } from "./MeasurementType";
+
 export type IngredientsTableType = {
 	id: number;
 	tableTitle: string;
@@ -7,5 +9,5 @@ export type IngredientsTableType = {
 export type IngredientsType = {
 	name: string;
 	quantity: number;
-	unit: string;
+	unit: MeasurementType | null;
 }
