@@ -162,7 +162,6 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({
 								/>
 							</td>
 							<td>
-								<label htmlFor="measurement">Select a measurement:</label>
 								<select
 									className="w-full py-2 px-3 rounded bg-gray-700 text-gray-200"
 									value={ingredient.unit || ""}
@@ -173,7 +172,7 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({
 										handleMeasurementChange(index, value);
 									}}
 								>
-									<option value="">Choose...</option>
+									<option value="">...</option>
 									{measurementValues.map((measurementValue) => (
 										<option key={measurementValue} value={measurementValue}>
 											{measurementValue}
