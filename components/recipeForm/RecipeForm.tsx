@@ -104,7 +104,7 @@ function RecipeForm(props: any) {
 				className="max-w-lg w-full-lg mx-auto"
 				onSubmit={recipeSubmitHandler}
 			>
-				<div className="flex flex-wrap mx-3 mb-6">
+				<div className="flex flex-col items-center justify-center mx-3 mb-6">
 					<label className="mt-4 block uppercase tracking-wide mx-auto text-gray-400 text-xs font-bold mb-2">
 						Recipe Name
 					</label>
@@ -115,15 +115,13 @@ function RecipeForm(props: any) {
 						ref={titleRef}
 					/>
 				</div>
-				<div className="flex flex-wrap mx-3 mb-6">
+				<div className="flex flex-col items-center justify-center mx-3 mb-6">
 					<label className="block uppercase tracking-wide mx-auto text-gray-400 text-xs font-bold mb-2">
 						Image Upload
 					</label>
-					<div className="flex justify-center">
-						<ImageUpload onImageUpload={handleImageUpload} />
-					</div>
+					<ImageUpload onImageUpload={handleImageUpload} />
 				</div>
-				<div className="flex flex-wrap mx-3 mb-6">
+				<div className="flex flex-col items-center justify-center mx-3 mb-6">
 					<label className="block uppercase tracking-wide mx-auto text-gray-400 text-xs font-bold mb-2">
 						Description
 					</label>
@@ -134,7 +132,7 @@ function RecipeForm(props: any) {
 						ref={descriptionRef}
 					/>
 				</div>
-				<div className="flex flex-wrap mx-3 mb-6">
+				<div className="flex flex-col items-center justify-center mx-3 mb-6">
 					<label className="block uppercase tracking-wide mx-auto text-gray-400 text-xs font-bold mb-2">
 						Servings
 					</label>
@@ -145,7 +143,7 @@ function RecipeForm(props: any) {
 						ref={servingsRef}
 					/>
 				</div>
-				<div className="flex flex-wrap mx-3 mb-6">
+				<div className="flex flex-col items-center justify-center mx-3 mb-6">
 					<label className="block uppercase tracking-wide mx-auto text-gray-400 text-xs font-bold mb-2">
 						Ingredients
 					</label>

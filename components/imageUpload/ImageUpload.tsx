@@ -42,9 +42,9 @@ export const ImageUpload: React.FC<Props> = ({ onImageUpload }) => {
 			: "Success";
 
 	return (
-		<div className="inline-flex">
+		<div>
 			<button
-				className={`px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 mx-auto ${
+				className={`bg-blue-500 hover:bg-blue-300 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mr-4${
 					uploadStatus === "Success" && "opacity-50 cursor-not-allowed"
 				}`}
 				type="button"
